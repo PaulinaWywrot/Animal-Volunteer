@@ -1,10 +1,11 @@
 import { useState } from "react";
-const Button = ({ id, morning }) => {
-  const [buttonValue, setButtonValue] = useState("Claim");
+
+const Button = ({ id, morning, booked }) => {
+  const [buttonValue, setButtonValue] = useState(
+    booked === "Booked" ? "Cancel Booking" : "Claim"
+  );
 
   const handleClickMorning = () => {
-    console.log({ id });
-
     setButtonValue("Cancel Booking");
     fetch(
       `https://animal-volunteer-server.onrender.com/sessions/morning/${id}`,
@@ -23,9 +24,8 @@ const Button = ({ id, morning }) => {
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
   };
-  const handleClickEvening = () => {
-    console.log({ id });
 
+  const handleClickEvening = () => {
     setButtonValue("Cancel Booking");
     fetch(
       `https://animal-volunteer-server.onrender.com/sessions/evening/${id}`,
@@ -44,6 +44,7 @@ const Button = ({ id, morning }) => {
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
   };
+
   return (
     <button
       className="button"
@@ -53,4 +54,5 @@ const Button = ({ id, morning }) => {
     </button>
   );
 };
+
 export default Button;

@@ -5,9 +5,9 @@ const Sessions = ({ sessions }) => {
       {sessions.map((session) => (
         <li className="session" key={session.id}>
           {session.date} <br /> Morning session is {session.morning}
-          <Button id={session.id} morning="morning" />
+          <Button id={session.id} morning="morning" booked={session.morning} />
           <br /> Evening session is {session.evening}
-          <Button id={session.id} evening="evening" />
+          <Button id={session.id} booked={session.evening} />
         </li>
       ))}
     </ul>
