@@ -21,7 +21,7 @@ function App() {
         setSessions(data);
       })
       .catch((Error) => console.log(Error));
-  }, []);
+  }, [sessions]);
   return (
     <div className="App">
       <Heading />

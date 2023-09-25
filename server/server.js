@@ -24,7 +24,7 @@ app.get("/sessions", async (req, res) => {
 
 app.put("/sessions/morning/:id", function (req, res) {
   let id = Number(req.params.id);
-  let morning = req.body.morning;
+  let { morning } = req.body;
 
   db.query("UPDATE sessions SET morning = $1 WHERE id = $2", [morning, id])
     .then(() => res.send(`Session status has been updated!`))
