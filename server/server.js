@@ -27,7 +27,7 @@ app.put("/sessions/morning/:id", function (req, res) {
   let { morning } = req.body;
 
   db.query("UPDATE sessions SET morning = $1 WHERE id = $2", [morning, id])
-    .then(() => res.send(`Session status has been updated!`))
+    .then(() => res.json({ status: `Session status has been updated!` }))
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: err });
@@ -39,7 +39,7 @@ app.put("/sessions/evening/:id", function (req, res) {
   let evening = req.body.evening;
   console.log(req.body);
   db.query("UPDATE sessions SET evening = $1 WHERE id = $2", [evening, id])
-    .then(() => res.send(`Session status has been updated!`))
+    .then(() => res.json({ status: `Session status has been updated!` }))
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: err });

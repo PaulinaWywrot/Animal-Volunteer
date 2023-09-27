@@ -1,10 +1,11 @@
 const Heading = () => {
   return (
     <div>
-      <h1 className="title">Welcome to City Farm Website</h1>
-      <h5 className="sub-title">
-        Dear Volunteer, if you would like to book a session , please choose the
-        date and time below and press the CLAIM button
+      <div className="bg-image">
+        <h1 className="h1 display-3 pt-5 mt-0">Welcome to City Farm </h1>
+      </div>
+      <h5 className="h4 mt-5">
+        Dear Volunteer, to book a session, please press the CLAIM button below
       </h5>
     </div>
   );

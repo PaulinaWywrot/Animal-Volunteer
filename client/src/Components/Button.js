@@ -44,10 +44,13 @@ const Button = ({ id, morning, booked }) => {
       .then((data) => console.log(data))
       .catch((error) => console.log(error));
   };
-
   return (
     <button
-      className="button"
+      className={`${
+        buttonValue === "Claim"
+          ? "btn btn-outline-success custom-margin-left"
+          : "btn btn-outline-danger custom-margin-left"
+      }`}
       onClick={morning ? handleClickMorning : handleClickEvening}
     >
       {buttonValue}

@@ -23,7 +23,7 @@ function App() {
       .catch((Error) => console.log(Error));
   }, [sessions]);
   return (
-    <div className="App">
+    <div className="bg-image">
       <Heading />
       <Sessions sessions={sessions} setSessions={setSessions} />
       <Footer />
