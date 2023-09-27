@@ -5,13 +5,14 @@ const Sessions = ({ sessions }) => {
       <ul className="list-unstyled custom-ul">
         {sessions.map((session) => (
           <li className="session mb-4" key={session.id}>
-            {session.date} <br /> Morning session is {session.morning}
+            <strong>{session.date}</strong> <br /> Morning session is{" "}
+            <strong>{session.morning}</strong>
             <Button
               id={session.id}
               morning="morning"
               booked={session.morning}
             />
-            <br /> <br /> Evening session is {session.evening}
+            <br /> <br /> Evening session is <strong>{session.evening}</strong>
             <Button id={session.id} booked={session.evening} />
           </li>
         ))}
