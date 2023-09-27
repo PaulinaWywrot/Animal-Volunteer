@@ -6,7 +6,8 @@ const Button = ({ id, morning, booked }) => {
   );
 
   const handleClickMorning = () => {
-    setButtonValue("Cancel Booking");
+    const newButtonValue = buttonValue === "Claim" ? "Cancel Booking" : "Claim";
+    setButtonValue(newButtonValue);
     fetch(
       `https://animal-volunteer-server.onrender.com/sessions/morning/${id}`,
       {
@@ -14,7 +15,9 @@ const Button = ({ id, morning, booked }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ morning: "Booked" }),
+        body: JSON.stringify({
+          morning: newButtonValue === "Claim" ? "Available" : "Booked",
+        }),
       }
     )
       .then((response) => {
@@ -26,7 +29,9 @@ const Button = ({ id, morning, booked }) => {
   };
 
   const handleClickEvening = () => {
-    setButtonValue("Cancel Booking");
+    const newButtonValue = buttonValue === "Claim" ? "Cancel Booking" : "Claim";
+
+    setButtonValue(newButtonValue);
     fetch(
       `https://animal-volunteer-server.onrender.com/sessions/evening/${id}`,
       {
@@ -34,7 +39,9 @@ const Button = ({ id, morning, booked }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ evening: "Booked" }),
+        body: JSON.stringify({
+          evening: newButtonValue === "Claim" ? "Available" : "Booked",
+        }),
       }
     )
       .then((response) => {
