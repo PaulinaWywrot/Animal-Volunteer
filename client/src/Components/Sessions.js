@@ -1,8 +1,28 @@
 import Button from "./Button";
-const Sessions = ({ sessions }) => {
+import { useEffect, useState } from "react";
+const Sessions = () => {
+  const [sessions, setSessions] = useState([]);
+
+  useEffect(() => {
+    fetch("https://animal-volunteer-server.onrender.com/sessions/")
+      .then((res) => {
+        if (res.status >= 200 && res.status <= 299) {
+          return res.json();
+        } else {
+          throw new Error(
+            `Encountered something unexpected: ${res.status} ${res.statusText}`
+          );
+        }
+      })
+      .then((data) => {
+        setSessions(data);
+      })
+      .catch((Error) => console.log(Error));
+  }, [sessions]);
+
   return (
     <div className="centered-container">
-      <ul className="list-unstyled custom-ul">
+      <ul className="list-unstyled custom-ul mt-5">
         {sessions.map((session) => (
           <li className="session mb-4" key={session.id}>
             <strong>{session.date}</strong> <br /> Morning session is{" "}
