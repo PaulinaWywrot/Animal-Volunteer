@@ -1,10 +1,12 @@
 import Button from "./Button";
 import { useEffect, useState } from "react";
-const Sessions = () => {
+const Sessions = ({ selectedDate }) => {
   const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
-    fetch("https://animal-volunteer-server.onrender.com/sessions/")
+    fetch(
+      `https://animal-volunteer-server.onrender.com/sessions/calendar/${selectedDate}`
+    )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -18,15 +20,15 @@ const Sessions = () => {
         setSessions(data);
       })
       .catch((Error) => console.log(Error));
-  }, [sessions]);
+  }, [selectedDate, sessions]);
 
   return (
     <div className="centered-container">
       <ul className="list-unstyled custom-ul mt-5">
         {sessions.map((session) => (
           <li className="session mb-4" key={session.id}>
-            <strong>{session.date}</strong> <br /> Morning session is{" "}
-            <strong>{session.morning}</strong>
+            <strong>{new Date(session.date).toLocaleDateString()}</strong>{" "}
+            <br /> Morning session is <strong>{session.morning}</strong>
             <Button
               id={session.id}
               morning="morning"

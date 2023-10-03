@@ -9,7 +9,6 @@ function App() {
     <div className="bg-image">
       <Heading />
       <CalendarComponent />
-      <Sessions />
       <Footer />
     </div>
   );
