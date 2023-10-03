@@ -1,6 +1,5 @@
 import "./App.css";
 import Heading from "./Components/Heading";
-import Sessions from "./Components/Sessions";
 import Footer from "./Components/Footer";
 import CalendarComponent from "./Components/CalendarComponent";
 
