@@ -24,13 +24,11 @@ app.get("/sessions", async (req, res) => {
 
 app.get("/sessions/calendar/:date", async (req, res) => {
   let date = req.params.date;
-  console.log("Received date:", date);
   try {
     const result = await db.query(
       "SELECT * FROM sessions WHERE to_char(date, 'yyyy-mm-dd') = $1",
       [date]
     );
-    console.log("Query result:", result.rows);
 
     res.status(200).json(result.rows);
   } catch (error) {
