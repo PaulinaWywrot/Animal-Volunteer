@@ -14,10 +14,8 @@ body {
 }
 .custom-ul {
   border: 1px solid #ccc;
-  /* Add the desired border properties */
   padding: 10px;
-  /* Add the desired padding value */
-  width:50%;
+  width:700px;
   background-color:rgb(247, 254, 230)
   
 
@@ -51,7 +49,7 @@ body {
   margin: 5px;
 }
 .react-calendar {
-  width: 350px;
+  width: 700px;
   max-width: 100%;
   background: rgb(247, 254, 230);
   border: 1px solid #a0a096;
@@ -149,11 +147,14 @@ body {
 
 .react-calendar__tile {
   max-width: 100%;
-  padding: 10px 6.6667px;
+  padding: 16px 12px;
+  margin: 4px;
   background: none;
   text-align: center;
   line-height: 16px;
+  border: 1px solid white;
 }
+
 
 .react-calendar__tile:disabled {
   background-color: #f0f0f0;
@@ -161,11 +162,11 @@ body {
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background-color: #e6e6e6;
+  background-color: #e9f6d1;
 }
 
 .react-calendar__tile--now {
-  background: #ffff76;
+  background: #e9f6d1;
 }
 
 .react-calendar__tile--now:enabled:hover,
@@ -183,13 +184,13 @@ body {
 }
 
 .react-calendar__tile--active {
-  background: #006edc;
+  background:rgb(147, 187, 139);
   color: white;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  background: rgba(96, 142, 85, 0.868);
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {
