@@ -15,8 +15,6 @@ const CalendarComponent = () => {
   return (
     <div className="calendar-container">
       <Calendar onChange={setDate} value={date} />
-      <div className="text-center">Selected date: {formatDate(date)}</div>{" "}
-      {console.log(formatDate(date))}
       <Sessions selectedDate={formatDate(date)} />
     </div>
   );

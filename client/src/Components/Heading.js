@@ -4,9 +4,10 @@ const Heading = () => {
       <div className="bg-image">
         <h1 className="h1 display-3 pt-5 mt-0">Welcome to City Farm </h1>
       </div>
-      <h5 className="h4 mt-5">
-        Dear Volunteer, to book a session, please press the CLAIM button below
-      </h5>
+      <h6 className="h4 mt-5 font-li">
+        DEAR VOLUNTEER, TO BOOK A SESSION, PLEASE CHOOSE THE DATE <br /> AND
+        PRESS <strong>CLAIM</strong> BUTTON BELOW
+      </h6>
     </div>
   );
 };

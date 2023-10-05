@@ -7,13 +7,13 @@
   width: 100%;
 }
 body {
-  background-color:white
+  background-color:rgb(248, 248, 248)#f0f0f0
 }
 .custom-margin-left {
   margin-left:10px;
 }
 .custom-ul {
-  border: 1px solid #ccc;
+  border: 1px solid rgba(96, 142, 85, 0.868);;
   padding: 10px;
   width:700px;
   background-color:rgb(247, 254, 230)
@@ -28,7 +28,7 @@ body {
   text-align:center;
   margin-top: 2rem;
   margin-bottom: 3rem;
-  color: white;
+  color: rgb(248, 248, 248);
   text-shadow: 1px 1px black;
 }
 .h4{
@@ -36,7 +36,9 @@ body {
   margin-bottom: 2rem;
   
 }
-
+.font-li {
+  color:rgba(47, 71, 42, 0.868);
+}
 .sessions {
   text-align: center;
   list-style-position: inside;
@@ -48,14 +50,17 @@ body {
 .button {
   margin: 5px;
 }
+
 .react-calendar {
   width: 700px;
   max-width: 100%;
   background: rgb(247, 254, 230);
-  border: 1px solid #a0a096;
+  border: 1px solid rgba(96, 142, 85, 0.868);;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
+  font-size: 18px;
   margin: auto;
+  color: rgba(37, 55, 33, 0.868);
 }
 
 .react-calendar--doubleView {
@@ -120,8 +125,12 @@ body {
 
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
+  
 }
-
+.react-calendar__month-view__days__day {
+  color:rgba(47, 71, 42, 0.868);
+  
+}
 .react-calendar__month-view__weekNumbers .react-calendar__tile {
   display: flex;
   align-items: center;
@@ -131,7 +140,7 @@ body {
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: #000000;
+  color: rgba(47, 71, 42, 0.868);
   font-weight: bold;
 }
 
@@ -147,7 +156,7 @@ body {
 
 .react-calendar__tile {
   max-width: 100%;
-  padding: 16px 12px;
+  padding: 20px 12px;
   margin: 4px;
   background: none;
   text-align: center;
