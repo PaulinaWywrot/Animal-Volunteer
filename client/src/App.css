@@ -1,3 +1,4 @@
+
 .bg-image {
   background-image: url(./img/farm.jpg);
   background-size: cover;
@@ -7,15 +8,16 @@
   width: 100%;
 }
 body {
-  background-color:rgb(248, 248, 248)#f0f0f0
+  background-color: #f7fee6;
+ 
 }
 .custom-margin-left {
   margin-left:10px;
 }
 .custom-ul {
-  border: 1px solid rgba(96, 142, 85, 0.868);;
+
   padding: 10px;
-  width:700px;
+  width:100%;
   background-color:rgb(247, 254, 230)
   
 
@@ -24,38 +26,87 @@ body {
   display: flex;
   justify-content: center;
 }
-.h1 {
-  text-align:center;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
-  color: rgb(248, 248, 248);
-  text-shadow: 1px 1px black;
+.calendar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 2rem;
 }
-.h4{
+.h1 {
+
+    text-align: center;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #383838;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+.h4 {
   text-align: center;
   margin-bottom: 2rem;
-  
+  color: #2f472a;
 }
 .font-li {
-  color:rgba(47, 71, 42, 0.868);
+  color: #2f472a;
+ 
 }
 .sessions {
-  text-align: center;
-  list-style-position: inside;
+  background-color: #f7fee6;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 5px;
 }
+
 .session {
   margin: 10px;
   text-align: center;
+  padding: 10px;
+  background-color: #f7fee6;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
+
+}
+.btn {
+  background: rgb(147, 187, 139);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
 }
 .button {
   margin: 5px;
 }
 
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-success {
+  background: rgb(147, 187, 139);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+.calendar {
+  background-color: #f7fee6;
+ 
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 5px;
+}
+.select-container {
+  background-color: #f7fee6;
+  margin-top: 7px;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
 .react-calendar {
-  width: 700px;
+  width: 100%;
   max-width: 100%;
   background: rgb(247, 254, 230);
-  border: 1px solid rgba(96, 142, 85, 0.868);;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
   font-size: 18px;
@@ -154,9 +205,11 @@ body {
   padding: 2em 0.5em;
 }
 
+/* Increase top and bottom padding for calendar tiles */
 .react-calendar__tile {
   max-width: 100%;
-  padding: 20px 12px;
+  padding: 16px 12px;
+  /* Adjust the values as needed */
   margin: 4px;
   background: none;
   text-align: center;

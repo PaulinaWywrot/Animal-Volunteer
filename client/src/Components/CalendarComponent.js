@@ -13,9 +13,19 @@ const CalendarComponent = () => {
   };
 
   return (
-    <div className="calendar-container">
-      <Calendar onChange={setDate} value={date} />
-      <Sessions selectedDate={formatDate(date)} />
+    <div className="container calendar-container">
+      <div className="row">
+        <div className="col-lg-6">
+          <div className="calendar">
+            <Calendar onChange={setDate} value={date} />
+          </div>
+        </div>
+        <div className="col-lg-6">
+          <div className="sessions">
+            <Sessions selectedDate={formatDate(date)} />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
