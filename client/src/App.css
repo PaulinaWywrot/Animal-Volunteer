@@ -61,7 +61,7 @@ body {
   margin: 10px;
   text-align: center;
   padding: 10px;
-  background-color: #f7fee6;
+  background-color: #eef6dd;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   color: #333;
 
@@ -97,7 +97,7 @@ body {
   border-radius: 5px;
 }
 .select-container {
-  background-color: #f7fee6;
+  background-color: #eef6dd;
   margin-top: 7px;
   padding: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
