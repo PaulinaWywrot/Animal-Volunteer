@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3007;
 const cors = require("cors");
+const validator = require("validator");
 app.use(express.json());
 app.use(cors());
 const dotenv = require("dotenv");
@@ -26,7 +27,7 @@ app.get("/sessions/calendar/:date", async (req, res) => {
   let date = req.params.date;
   try {
     const result = await db.query(
-      "SELECT * FROM sessions2 WHERE to_char(date, 'yyyy-mm-dd') = $1",
+      "SELECT * FROM sessions2 WHERE to_char(date, 'yyyy-mm-dd') = $1 order by id",
       [date]
     );
 
@@ -60,4 +61,31 @@ app.put("/sessions/:id", function (req, res) {
       res.status(500).json({ error: err });
     });
 });
+app.post("/sessions/volunteers", function (req, res) {
+  const newName = req.body.name;
+  const newPhone = req.body.phone;
+  const newEmail = req.body.email;
+
+  const query = `INSERT INTO volunteers (name, phone, email) VALUES ($1, $2, $3)`;
+  if (req.body.name && req.body.phone && validator.isEmail(req.body.email)) {
+    db.query(query, [newName, newPhone, newEmail])
+      .then(() => {
+        res.status(201).send("New volunteer has been registered succesfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          result: "failure",
+          message: "Error. New volunteer details could not be saved",
+        });
+      });
+  } else {
+    res
+      .status(400)
+      .send(
+        "Please check the fields have been filled in and email address has correct format i.e. test@example.com"
+      );
+  }
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));

@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-const ShowSelect = ({ showSelect, sessionId }) => {
+const ShowSelect = ({
+  showSelect,
+  setShowSelectMorning,
+  setShowSelectEvening,
+  sessionId,
+}) => {
   const [volunteers, setVolunteers] = useState([]);
   const [selectValue, setSelectValue] = useState(0);
   useEffect(() => {
@@ -37,6 +42,9 @@ const ShowSelect = ({ showSelect, sessionId }) => {
         .then((res) => {
           if (res.status === 200) {
             console.log("Booking confirmed successfully");
+            setShowSelectEvening(false);
+            setShowSelectMorning(false);
+            alert("Booking confirmed successfully");
           } else {
             console.error("Booking confirmation failed");
           }

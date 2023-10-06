@@ -4,6 +4,7 @@ const Sessions = ({ selectedDate }) => {
   const [sessions, setSessions] = useState([]);
   const [showSelectMorning, setShowSelectMorning] = useState(false);
   const [showSelectEvening, setShowSelectEvening] = useState(false);
+
   useEffect(() => {
     fetch(
       `https://animal-volunteer-server.onrender.com/sessions/calendar/${selectedDate}`
@@ -21,15 +22,13 @@ const Sessions = ({ selectedDate }) => {
         setSessions(data);
       })
       .catch((Error) => console.log(Error));
-  }, [selectedDate]);
+  }, [selectedDate, showSelectMorning, showSelectEvening]);
   const toggleSelectMorning = () => {
     setShowSelectMorning(!showSelectMorning);
-    console.log("morningHandler");
   };
 
   const toggleSelectEvening = () => {
     setShowSelectEvening(!showSelectEvening);
-    console.log("eveningHandler");
   };
   return (
     <div className="centered-container">
@@ -60,6 +59,8 @@ const Sessions = ({ selectedDate }) => {
                   : showSelectEvening
               }
               sessionId={session.id}
+              setShowSelectMorning={setShowSelectMorning}
+              setShowSelectEvening={setShowSelectEvening}
             />
           </li>
         ))}
