@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 
 const ShowSelect = ({
   showSelect,
   setShowSelectMorning,
   setShowSelectEvening,
   sessionId,
+  showModal,
+  doHideModal,
+  handleCancelBooking,
 }) => {
   const [volunteers, setVolunteers] = useState([]);
   const [selectValue, setSelectValue] = useState(0);
@@ -27,7 +32,7 @@ const ShowSelect = ({
   function handleChange(event) {
     setSelectValue(event.target.value);
   }
-  function handleConfirmBooking() {
+  const handleConfirmBooking = () => {
     if (selectValue !== 0) {
       fetch(
         `https://animal-volunteer-server.onrender.com/sessions/${sessionId}`,
@@ -55,7 +60,7 @@ const ShowSelect = ({
     } else {
       console.error("Please select a volunteer before confirming booking");
     }
-  }
+  };
   return (
     <div className={`show-select ${showSelect ? "show" : "hide"}`}>
       {showSelect && (
@@ -84,6 +89,21 @@ const ShowSelect = ({
           </div>
         </div>
       )}
+
+      <Modal show={showModal} onHide={doHideModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Booking cancellation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to cancel the booking?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={doHideModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleCancelBooking}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

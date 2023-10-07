@@ -61,6 +61,15 @@ app.put("/sessions/:id", function (req, res) {
       res.status(500).json({ error: err });
     });
 });
+app.put("/sessions/bookings/:id", function (req, res) {
+  let id = Number(req.params.id);
+  db.query("UPDATE sessions2 SET volunteer_id = null WHERE id = $1", [id])
+    .then(() => res.json({ status: `Booking has been successfully deleted` }))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err });
+    });
+});
 app.post("/sessions/volunteers", function (req, res) {
   const newName = req.body.name;
   const newPhone = req.body.phone;
