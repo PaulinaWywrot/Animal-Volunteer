@@ -61,7 +61,7 @@ const ShowSelect = ({
       console.error("Please select a volunteer before confirming booking");
     }
   };
-  const handleCancelBooking = () => {
+  const handleCancelBooking = (sessionId) => {
     doShowModal();
     console.log("sessionId ======> ", sessionId);
     setSelectValue(null);
@@ -132,7 +132,10 @@ const ShowSelect = ({
           <Button variant="secondary" onClick={doHideModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleCancelBooking}>
+          <Button
+            variant="primary"
+            onClick={() => handleCancelBooking(sessionId)}
+          >
             Confirm
           </Button>
         </Modal.Footer>
