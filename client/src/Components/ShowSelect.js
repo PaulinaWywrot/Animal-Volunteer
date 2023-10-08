@@ -8,11 +8,11 @@ const ShowSelect = ({
   setShowSelectEvening,
   sessionId,
   showModal,
+  doShowModal,
   doHideModal,
-  handleCancelBooking,
 }) => {
   const [volunteers, setVolunteers] = useState([]);
-  const [selectValue, setSelectValue] = useState(0);
+  const [selectValue, setSelectValue] = useState(null);
   useEffect(() => {
     fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers")
       .then((res) => {
@@ -33,7 +33,7 @@ const ShowSelect = ({
     setSelectValue(event.target.value);
   }
   const handleConfirmBooking = () => {
-    if (selectValue !== 0) {
+    if (selectValue !== null) {
       fetch(
         `https://animal-volunteer-server.onrender.com/sessions/${sessionId}`,
         {
@@ -61,6 +61,39 @@ const ShowSelect = ({
       console.error("Please select a volunteer before confirming booking");
     }
   };
+  const handleCancelBooking = () => {
+    doShowModal();
+    console.log("sessionId ======> ", sessionId);
+    setSelectValue(null);
+    fetch(
+      `https://animal-volunteer-server.onrender.com/sessions/bookings/${sessionId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ volunteer_id: selectValue }),
+      }
+    )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          doHideModal();
+
+          alert("Booking cancelled successfully");
+        } else {
+          return res.json().then((errorData) => {
+            console.error("Booking cancellation failed:", errorData);
+            alert("Booking cancellation failed");
+          });
+        }
+      })
+      .catch((err) => {
+        console.error("Error during booking cancellation:", err);
+        alert("Error during booking cancellation");
+      });
+  };
+
   return (
     <div className={`show-select ${showSelect ? "show" : "hide"}`}>
       {showSelect && (

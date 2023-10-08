@@ -55,7 +55,7 @@ app.put("/sessions/:id", function (req, res) {
     volunteer_id,
     id,
   ])
-    .then(() => res.json({ status: `Volunteer id has been updated!` }))
+    .then(() => res.json({ status: `Booking has been updated!` }))
     .catch((err) => {
       console.error(err);
       res.status(500).json({ error: err });
@@ -63,7 +63,11 @@ app.put("/sessions/:id", function (req, res) {
 });
 app.put("/sessions/bookings/:id", function (req, res) {
   let id = Number(req.params.id);
-  db.query("UPDATE sessions2 SET volunteer_id = null WHERE id = $1", [id])
+  let { volunteer_id } = req.body;
+  db.query("UPDATE sessions2 SET volunteer_id = $1 WHERE id = $2", [
+    volunteer_id,
+    id,
+  ])
     .then(() => res.json({ status: `Booking has been successfully deleted` }))
     .catch((err) => {
       console.error(err);

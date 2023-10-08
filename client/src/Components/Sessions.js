@@ -6,6 +6,7 @@ const Sessions = ({ selectedDate }) => {
   const [showSelectMorning, setShowSelectMorning] = useState(false);
   const [showSelectEvening, setShowSelectEvening] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   const doShowModal = () => {
     setShowModal(true);
   };
@@ -30,7 +31,7 @@ const Sessions = ({ selectedDate }) => {
         console.log("sessions", sessions);
       })
       .catch((Error) => console.log(Error));
-  }, [selectedDate, showSelectMorning, showSelectEvening]);
+  }, [selectedDate, showSelectMorning, showSelectEvening, showModal]);
   const toggleSelectMorning = () => {
     setShowSelectMorning(!showSelectMorning);
   };
@@ -38,31 +39,7 @@ const Sessions = ({ selectedDate }) => {
   const toggleSelectEvening = () => {
     setShowSelectEvening(!showSelectEvening);
   };
-  const handleCancelBooking = () => {
-    console.log("sessions2", sessions);
-    fetch(
-      `https://animal-volunteer-server.onrender.com/sessions/bookings/${sessionId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ volunteer_id: null }),
-      }
-    )
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("Booking cancelled successfully");
-          setShowModal(false);
-          alert("Booking cancelled successfully");
-        } else {
-          console.error("Booking cancellation failed");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+
   return (
     <div className="centered-container">
       <ul className="list-unstyled custom-ul mt-5">
@@ -99,9 +76,9 @@ const Sessions = ({ selectedDate }) => {
               sessionId={session.id}
               setShowSelectMorning={setShowSelectMorning}
               setShowSelectEvening={setShowSelectEvening}
+              doShowModal={doShowModal}
               showModal={showModal}
               doHideModal={doHideModal}
-              handleCancelBooking={handleCancelBooking}
             />
           </li>
         ))}
