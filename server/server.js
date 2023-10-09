@@ -27,7 +27,7 @@ app.get("/sessions/calendar/:date", async (req, res) => {
   let date = req.params.date;
   try {
     const result = await db.query(
-      "SELECT * FROM sessions2 WHERE to_char(date, 'yyyy-mm-dd') = $1 order by id",
+      "SELECT * FROM sessions2 WHERE to_char(date+1, 'yyyy-mm-dd') = $1 order by id",
       [date]
     );
 
@@ -64,6 +64,8 @@ app.put("/sessions/:id", function (req, res) {
 app.put("/sessions/bookings/:id", function (req, res) {
   let id = Number(req.params.id);
   let { volunteer_id } = req.body;
+  console.log("PUT request received for sessionId:", id);
+  console.log("Request body:", req.body);
   db.query("UPDATE sessions2 SET volunteer_id = $1 WHERE id = $2", [
     volunteer_id,
     id,

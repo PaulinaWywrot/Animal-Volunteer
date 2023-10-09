@@ -10,9 +10,17 @@ const ShowSelect = ({
   showModal,
   doShowModal,
   doHideModal,
+  slotId,
 }) => {
   const [volunteers, setVolunteers] = useState([]);
   const [selectValue, setSelectValue] = useState(null);
+  // const [ShowFormModal, setShowFormModal] = useState(false);
+  // const doShowFormModal = () => {
+  //   setShowFormModal(true);
+  // };
+  // const doHideFormModal = () => {
+  //   setShowFormModal(false);
+  // };
   useEffect(() => {
     fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers")
       .then((res) => {
@@ -61,18 +69,18 @@ const ShowSelect = ({
       console.error("Please select a volunteer before confirming booking");
     }
   };
-  const handleCancelBooking = (sessionId) => {
+  const handleCancelBooking = () => {
     doShowModal();
-    console.log("sessionId ======> ", sessionId);
+    console.log("sessionId ======> ", slotId);
     setSelectValue(null);
     fetch(
-      `https://animal-volunteer-server.onrender.com/sessions/bookings/${sessionId}`,
+      `https://animal-volunteer-server.onrender.com/sessions/bookings/${slotId}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ volunteer_id: selectValue }),
+        body: JSON.stringify({ volunteer_id: null }),
       }
     )
       .then((res) => {
@@ -132,10 +140,7 @@ const ShowSelect = ({
           <Button variant="secondary" onClick={doHideModal}>
             Close
           </Button>
-          <Button
-            variant="primary"
-            onClick={() => handleCancelBooking(sessionId)}
-          >
+          <Button variant="primary" onClick={handleCancelBooking}>
             Confirm
           </Button>
         </Modal.Footer>

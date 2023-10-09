@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import Sessions from "./Sessions";
 
+// const CalendarComponent = () => {
+//   const [date, setDate] = useState(new Date().toISOString());
+//   // const isoDate = date.toISOString();
+//   // setDate(isoDate);
+//   console.log(date);
+//   const formatDate = (isoDate) => {
+//
+//   };
+
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
-
+  console.log(date);
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");

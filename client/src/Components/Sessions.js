@@ -6,7 +6,9 @@ const Sessions = ({ selectedDate }) => {
   const [showSelectMorning, setShowSelectMorning] = useState(false);
   const [showSelectEvening, setShowSelectEvening] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [slotId, setSlotId] = useState(null);
+  console.log(selectedDate);
   const doShowModal = () => {
     setShowModal(true);
   };
@@ -14,6 +16,7 @@ const Sessions = ({ selectedDate }) => {
     setShowModal(false);
   };
   useEffect(() => {
+    setIsLoading(true);
     fetch(
       `https://animal-volunteer-server.onrender.com/sessions/calendar/${selectedDate}`
     )
@@ -27,10 +30,14 @@ const Sessions = ({ selectedDate }) => {
         }
       })
       .then((data) => {
+        setIsLoading(false);
         setSessions(data);
         console.log("sessions", sessions);
       })
-      .catch((Error) => console.log(Error));
+      .catch((Error) => {
+        setIsLoading(false);
+        console.log(Error);
+      });
   }, [selectedDate, showSelectMorning, showSelectEvening, showModal]);
   const toggleSelectMorning = () => {
     setShowSelectMorning(!showSelectMorning);
@@ -42,47 +49,55 @@ const Sessions = ({ selectedDate }) => {
 
   return (
     <div className="centered-container">
-      <ul className="list-unstyled custom-ul mt-5">
-        {sessions.map((session) => (
-          <li className="session mb-4 font-li" key={session.id}>
-            <strong>{new Date(session.date).toLocaleDateString()}</strong>{" "}
-            <br /> {session.slot} session is{" "}
-            <strong>{session.volunteer_id ? "Booked" : "Available"}</strong>
-            {session.volunteer_id ? (
-              <button
-                className="btn btn-outline-danger custom-margin-left"
-                onClick={doShowModal}
-              >
-                Cancel Booking
-              </button>
-            ) : (
-              <button
-                className="btn btn-outline-success custom-margin-left"
-                onClick={
+      {isLoading ? (
+        <h3>Loading...</h3>
+      ) : (
+        <ul className="list-unstyled custom-ul mt-5">
+          {sessions.map((session) => (
+            <li className="session mb-4 font-li" key={session.id}>
+              <strong>{new Date(session.date).toLocaleDateString()}</strong>{" "}
+              <br /> {session.slot} session is{" "}
+              <strong>{session.volunteer_id ? "Booked" : "Available"}</strong>
+              {session.volunteer_id ? (
+                <button
+                  className="btn btn-outline-danger custom-margin-left"
+                  onClick={() => {
+                    doShowModal();
+                    setSlotId(session.id);
+                  }}
+                >
+                  Cancel Booking
+                </button>
+              ) : (
+                <button
+                  className="btn btn-outline-success custom-margin-left"
+                  onClick={
+                    session.slot === "Morning"
+                      ? toggleSelectMorning
+                      : toggleSelectEvening
+                  }
+                >
+                  Claim
+                </button>
+              )}
+              <ShowSelect
+                showSelect={
                   session.slot === "Morning"
-                    ? toggleSelectMorning
-                    : toggleSelectEvening
+                    ? showSelectMorning
+                    : showSelectEvening
                 }
-              >
-                Claim
-              </button>
-            )}
-            <ShowSelect
-              showSelect={
-                session.slot === "Morning"
-                  ? showSelectMorning
-                  : showSelectEvening
-              }
-              sessionId={session.id}
-              setShowSelectMorning={setShowSelectMorning}
-              setShowSelectEvening={setShowSelectEvening}
-              doShowModal={doShowModal}
-              showModal={showModal}
-              doHideModal={doHideModal}
-            />
-          </li>
-        ))}
-      </ul>
+                sessionId={session.id}
+                setShowSelectMorning={setShowSelectMorning}
+                setShowSelectEvening={setShowSelectEvening}
+                doShowModal={doShowModal}
+                showModal={showModal}
+                doHideModal={doHideModal}
+                slotId={slotId}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
