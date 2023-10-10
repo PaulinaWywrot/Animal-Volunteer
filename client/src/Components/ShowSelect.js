@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const ShowSelect = ({
   showSelect,
@@ -14,13 +15,11 @@ const ShowSelect = ({
 }) => {
   const [volunteers, setVolunteers] = useState([]);
   const [selectValue, setSelectValue] = useState(null);
-  // const [ShowFormModal, setShowFormModal] = useState(false);
-  // const doShowFormModal = () => {
-  //   setShowFormModal(true);
-  // };
-  // const doHideFormModal = () => {
-  //   setShowFormModal(false);
-  // };
+  const [showFormModal, setShowFormModal] = useState(false);
+  const [fullname, setFullname] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
   useEffect(() => {
     fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers")
       .then((res) => {
@@ -101,7 +100,55 @@ const ShowSelect = ({
         alert("Error during booking cancellation");
       });
   };
+  const doHideFormModal = () => {
+    setShowFormModal(false);
+  };
+  const doShowFormModal = () => {
+    setShowFormModal(true);
+  };
+  const handleInputChange = (event) => {
+    if (event.target.name === "fullname") {
+      setFullname(event.target.value);
+    } else if (event.target.name === "phone") {
+      setPhone(event.target.value);
+    } else if (event.target.name === "email") {
+      setEmail(event.target.value);
+    }
+  };
+  function handleSubmit(event) {
+    event.preventDefault();
 
+    console.log("Sending data to server");
+
+    fetch("http://localhost:3007/sessions/volunteers", {
+      method: "POST",
+      body: JSON.stringify({
+        name: fullname,
+        phone: phone,
+        email: email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 201) {
+          doHideFormModal();
+
+          alert("Registration completed");
+        } else {
+          return res.json().then((errorData) => {
+            console.error("Registration failed:", errorData);
+            alert("Registration failed");
+          });
+        }
+      })
+      .catch((err) => {
+        console.error("Error during registration:", err);
+        alert("Error during registration");
+      });
+  }
   return (
     <div className={`show-select ${showSelect ? "show" : "hide"}`}>
       {showSelect && (
@@ -123,7 +170,12 @@ const ShowSelect = ({
             ))}
           </select>
           <div className="mt-2 d-flex justify-content-around">
-            <button className="btn btn-secondary mr-2">Register</button>
+            <button
+              className="btn btn-secondary mr-2"
+              onClick={doShowFormModal}
+            >
+              Register
+            </button>
             <button className="btn btn-success" onClick={handleConfirmBooking}>
               Confirm Booking
             </button>
@@ -131,7 +183,7 @@ const ShowSelect = ({
         </div>
       )}
 
-      <Modal show={showModal} onHide={doHideModal}>
+      <Modal show={showModal} onHide={() => doHideModal}>
         <Modal.Header closeButton>
           <Modal.Title>Booking cancellation</Modal.Title>
         </Modal.Header>
@@ -142,6 +194,45 @@ const ShowSelect = ({
           </Button>
           <Button variant="primary" onClick={handleCancelBooking}>
             Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showFormModal} onHide={doHideFormModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Registration Form</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group>
+            <Form.Label>Name: </Form.Label>
+            <Form.Control
+              type="text"
+              name="fullname"
+              onChange={handleInputChange}
+              value={fullname}
+              placeholder="Name"
+            />
+            <Form.Label className="mt-3">Phone Number: </Form.Label>
+            <Form.Control
+              type="text"
+              name="phone"
+              onChange={handleInputChange}
+              value={phone}
+              placeholder="Phone number"
+            />
+            <Form.Label className="mt-3">Email address: </Form.Label>
+            <Form.Control
+              type="text"
+              name="email"
+              onChange={handleInputChange}
+              value={email}
+              placeholder="Email"
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" type="submit" onClick={handleSubmit}>
+            Submit
           </Button>
         </Modal.Footer>
       </Modal>

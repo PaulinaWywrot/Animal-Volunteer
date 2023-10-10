@@ -85,21 +85,21 @@ app.post("/sessions/volunteers", function (req, res) {
   if (req.body.name && req.body.phone && validator.isEmail(req.body.email)) {
     db.query(query, [newName, newPhone, newEmail])
       .then(() => {
-        res.status(201).send("New volunteer has been registered succesfully");
+        res
+          .status(201)
+          .json({ status: `New volunteer has been registered succesfully` });
       })
       .catch((err) => {
         console.log(err);
-        res.status(500).send({
+        res.status(500).json({
           result: "failure",
           message: "Error. New volunteer details could not be saved",
         });
       });
   } else {
-    res
-      .status(400)
-      .send(
-        "Please check the fields have been filled in and email address has correct format i.e. test@example.com"
-      );
+    res.status(400).json({
+      error: `Please check the fields have been filled in and email address has correct format i.e. test@example.com`,
+    });
   }
 });
 
