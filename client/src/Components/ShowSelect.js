@@ -120,7 +120,7 @@ const ShowSelect = ({
 
     console.log("Sending data to server");
 
-    fetch("http://localhost:3007/sessions/volunteers", {
+    fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers", {
       method: "POST",
       body: JSON.stringify({
         name: fullname,
@@ -134,13 +134,21 @@ const ShowSelect = ({
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
+          setFullname("");
+          setEmail("");
+          setPhone("");
           doHideFormModal();
 
           alert("Registration completed");
         } else {
+          setFullname("");
+          setEmail("");
+          setPhone("");
           return res.json().then((errorData) => {
             console.error("Registration failed:", errorData);
-            alert("Registration failed");
+            alert(
+              "Registration failed. Please check the fields have been filled in and email address has correct format i.e. test@example.com"
+            );
           });
         }
       })
@@ -160,9 +168,7 @@ const ShowSelect = ({
             onChange={handleChange}
             className="form-control form-control-sm mb-3 mt-3 w-50 mx-auto"
           >
-            <option value="" disabled>
-              Select
-            </option>
+            <option value="">Select</option>
             {volunteers.map((volunteer, index) => (
               <option key={index} value={volunteer.id}>
                 {volunteer.name}

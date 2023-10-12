@@ -27,7 +27,7 @@ app.get("/sessions/calendar/:date", async (req, res) => {
   let date = req.params.date;
   try {
     const result = await db.query(
-      "SELECT * FROM sessions2 WHERE to_char(date+1, 'yyyy-mm-dd') = $1 order by id",
+      "SELECT * FROM sessions2 WHERE to_char(date, 'yyyy-mm-dd') = $1 order by id",
       [date]
     );
 
@@ -35,6 +35,29 @@ app.get("/sessions/calendar/:date", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to fetch sessions" });
+  }
+});
+
+app.get("/sessions/bookings", async (req, res) => {
+  try {
+    const result = await db.query(
+      "SELECT * FROM sessions2 s left join volunteers v on(s.volunteer_id = v.id) where s.volunteer_id is not null order by s.id;"
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "failed to fetch booking details" });
+  }
+});
+app.get("/sessions/available", async (req, res) => {
+  try {
+    const result = await db.query(
+      "SELECT * FROM sessions2 where volunteer_id is null order by id ;"
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "failed to fetch booking details" });
   }
 });
 
