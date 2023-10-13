@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Table from "react-bootstrap/Table";
 
 const VolunteerView = () => {
   const [volunteers, setVolunteers] = useState([]);
@@ -8,7 +7,7 @@ const VolunteerView = () => {
   const [bookings, setBookings] = useState([]);
   const [volunteerBookings, setVolunteerBookings] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3007/sessions/volunteers")
+    fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers")
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -61,7 +60,7 @@ const VolunteerView = () => {
     <div>
       <div className="pb-5">
         <div className=" mt-3 text-center">
-          <h5>Select your name</h5>
+          <h5 className="bookings-title">Select your name</h5>
         </div>
         <select
           onChange={handleChange}
@@ -74,16 +73,15 @@ const VolunteerView = () => {
             </option>
           ))}
         </select>
-        <h5 className="h5">Your Bookings:</h5>
-        <Table size="sm" className="custom-table">
+        <h5 className="h5 bookings-title">Your Bookings:</h5>
+        <table className="custom-table">
           {isLoading ? (
-            <h3>Loading...</h3>
+            <h3 className="loading">Loading...</h3>
           ) : (
             <>
               <thead>
                 <tr>
                   <th>#</th>
-
                   <th>Date</th>
                   <th>Slot</th>
                 </tr>
@@ -99,7 +97,7 @@ const VolunteerView = () => {
               </tbody>
             </>
           )}
-        </Table>
+        </table>
       </div>
     </div>
   );

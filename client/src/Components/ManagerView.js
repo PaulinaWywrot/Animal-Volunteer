@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Table from "react-bootstrap/Table";
 const ManagerView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [bookings, setBookings] = useState([]);
@@ -47,16 +46,15 @@ const ManagerView = () => {
   return (
     <div>
       <div className="pb-5 mt-5">
-        <h5 className="h5 mt-5">Bookings and Volunteers Details</h5>
-        <Table size="sm" className="custom-table">
+        <h5 className="h5 mt-6">Bookings and Volunteers Details</h5>
+        <table className="custom-table">
           {isLoading ? (
-            <h3>Loading...</h3>
+            <h3 className="loading">Loading...</h3>
           ) : (
             <>
               <thead>
                 <tr>
                   <th>#</th>
-
                   <th>Date</th>
                   <th>Slot</th>
                   <th>Name</th>
@@ -68,7 +66,6 @@ const ManagerView = () => {
                 {bookings.map((booking, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-
                     <td>{new Date(booking.date).toLocaleDateString()}</td>
                     <td>{booking.slot}</td>
                     <td>{booking.name}</td>
@@ -79,36 +76,34 @@ const ManagerView = () => {
               </tbody>
             </>
           )}
-        </Table>
+        </table>
       </div>
       <div className="pb-5 mt-5">
         <h5 className="h5 mt-5">Available Sessions</h5>
-        <Table size="sm" className="custom-table">
+        <table className="custom-table">
           {isLoading ? (
-            <h3>Loading...</h3>
+            <h3 className="loading">Loading...</h3>
           ) : (
             <>
               <thead>
                 <tr>
                   <th>#</th>
-
                   <th>Date</th>
                   <th>Slot</th>
                 </tr>
               </thead>
               <tbody>
-                {availableSessions.map((booking, index) => (
+                {availableSessions.map((session, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-
-                    <td>{new Date(booking.date).toLocaleDateString()}</td>
-                    <td>{booking.slot}</td>
+                    <td>{new Date(session.date).toLocaleDateString()}</td>
+                    <td>{session.slot}</td>
                   </tr>
                 ))}
               </tbody>
             </>
           )}
-        </Table>
+        </table>
       </div>
     </div>
   );

@@ -50,7 +50,7 @@ const Sessions = ({ selectedDate }) => {
   return (
     <div className="centered-container">
       {isLoading ? (
-        <h3>Loading...</h3>
+        <h3 className="loading">Loading...</h3>
       ) : (
         <ul className="list-unstyled custom-ul mt-5">
           {sessions.map((session) => (

@@ -99,7 +99,7 @@ font-weight: bold;
   border-radius: 5px;
 }
 .about{
-    background-color: #f7fee6;
+    background-color: #eef6dd;;
     width: 50%;
       border: 1px solid rgba(0, 0, 0, 0.2);
       padding: 1rem;
@@ -114,12 +114,29 @@ font-weight: bold;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 }
-.custom-table {
-  border: 1px solid rgba(72, 145, 116, 0.2);
-  width: 50%;
-  margin: 0 auto;
+.bookings-title {
+  margin-top: 3rem;
 }
 
+.custom-table {
+  border: 2px solid rgba(72, 145, 116, 0.2);
+  width: 50%;
+  margin: 2rem auto;
+  background-color: #eef6dd;
+  font-size: large;
+ 
+}
+thead {
+  border: 2px solid rgba(72, 145, 116, 0.2);
+  background-color: rgb(185, 210, 179);
+}
+th, td {
+   border: 1px solid rgba(72, 145, 116, 0.2);
+   padding: 1rem
+}
+.loading {
+text-align: center;
+}
 .react-calendar {
   width: 100%;
   max-width: 100%;
