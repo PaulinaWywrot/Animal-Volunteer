@@ -53,7 +53,7 @@ const ManagerView = () => {
     <div>
       <div className="d-flex justify-content-center mt-5">
         <button
-          className="btn btn-outline-danger custom-margin-left"
+          className="btn btn-outline-success custom-margin-left"
           onClick={() => setViewTable("booked")}
         >
           Booking Details
