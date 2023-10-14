@@ -3,6 +3,7 @@ const ManagerView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [bookings, setBookings] = useState([]);
   const [availableSessions, setAvailableSessions] = useState([]);
+  const [viewTable, setViewTable] = useState("booked");
   useEffect(() => {
     setIsLoading(true);
     fetch("https://animal-volunteer-server.onrender.com/sessions/available")
@@ -21,7 +22,7 @@ const ManagerView = () => {
       })
       .catch((Error) => console.log(Error));
     setIsLoading(false);
-  }, []);
+  }, [viewTable]);
   useEffect(() => {
     setIsLoading(true);
     fetch("https://animal-volunteer-server.onrender.com/sessions/bookings")
@@ -43,69 +44,93 @@ const ManagerView = () => {
         console.log(Error);
       });
   }, []);
+
+  //   const handleClick = () => {
+  //     setViewTable(viewTable === "booked" ? "available" : "booked");
+  //   };
+
   return (
     <div>
-      <div className="pb-5 mt-5">
-        <h5 className="h5 mt-6">Bookings and Volunteers Details</h5>
-        <table className="custom-table">
-          {isLoading ? (
-            <h3 className="loading">Loading...</h3>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Date</th>
-                  <th>Slot</th>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                {bookings.map((booking, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{new Date(booking.date).toLocaleDateString()}</td>
-                    <td>{booking.slot}</td>
-                    <td>{booking.name}</td>
-                    <td>{booking.phone}</td>
-                    <td>{booking.email}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </>
-          )}
-        </table>
+      <div className="d-flex justify-content-center mt-5">
+        <button
+          className="btn btn-outline-danger custom-margin-left"
+          onClick={() => setViewTable("booked")}
+        >
+          Booking Details
+        </button>
+        <button
+          className="btn btn-outline-success custom-margin-left"
+          onClick={() => setViewTable("available")}
+        >
+          Available Sessions
+        </button>
       </div>
-      <div className="pb-5 mt-5">
-        <h5 className="h5 mt-5">Available Sessions</h5>
-        <table className="custom-table">
-          {isLoading ? (
-            <h3 className="loading">Loading...</h3>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Date</th>
-                  <th>Slot</th>
-                </tr>
-              </thead>
-              <tbody>
-                {availableSessions.map((session, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{new Date(session.date).toLocaleDateString()}</td>
-                    <td>{session.slot}</td>
+      {viewTable === "booked" && (
+        <div className="pb-5 mt-5">
+          <h5 className="h5 mt-6">Bookings and Volunteers Details</h5>
+          <table className="custom-table">
+            {isLoading ? (
+              <h3 className="loading">Loading...</h3>
+            ) : (
+              <>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Slot</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
                   </tr>
-                ))}
-              </tbody>
-            </>
-          )}
-        </table>
-      </div>
+                </thead>
+                <tbody>
+                  {bookings.map((booking, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{new Date(booking.date).toLocaleDateString()}</td>
+                      <td>{booking.slot}</td>
+                      <td>{booking.name}</td>
+                      <td>{booking.phone}</td>
+                      <td>{booking.email}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </>
+            )}
+          </table>
+        </div>
+      )}
+      {viewTable === "available" && (
+        <div className="pb-5 mt-5">
+          <h5 className="h5 mt-5">Available Sessions</h5>
+          <table className="custom-table">
+            {isLoading ? (
+              <h3 className="loading">Loading...</h3>
+            ) : (
+              <>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Slot</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {availableSessions.map((session, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{new Date(session.date).toLocaleDateString()}</td>
+                      <td>{session.slot}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </>
+            )}
+          </table>
+        </div>
+      )}
     </div>
   );
 };
+
 export default ManagerView;
