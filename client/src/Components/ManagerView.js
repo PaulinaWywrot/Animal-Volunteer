@@ -45,10 +45,27 @@ const ManagerView = () => {
       });
   }, []);
 
-  //   const handleClick = () => {
-  //     setViewTable(viewTable === "booked" ? "available" : "booked");
-  //   };
-
+  function pastBookingsData() {
+    const currentDate = new Date().toISOString();
+    const pastBookings = bookings.filter(
+      (booking) => booking.date < currentDate
+    );
+    return pastBookings;
+  }
+  function futureBookingsData() {
+    const currentDate = new Date().toISOString();
+    const pastBookings = bookings.filter(
+      (booking) => booking.date > currentDate
+    );
+    return pastBookings;
+  }
+  function futureSessions() {
+    const currentDate = new Date().toISOString();
+    const pastBookings = availableSessions.filter(
+      (booking) => booking.date > currentDate
+    );
+    return pastBookings;
+  }
   return (
     <div>
       <div className="d-flex justify-content-center mt-5">
@@ -68,6 +85,7 @@ const ManagerView = () => {
       {viewTable === "booked" && (
         <div className="pb-5 mt-5">
           <h5 className="h5 mt-6">Bookings and Volunteers Details</h5>
+          <h6 className="h5 mt-6 custom-h6">Future Bookings:</h6>
           <table className="custom-table">
             {isLoading ? (
               <h3 className="loading">Loading...</h3>
@@ -84,7 +102,38 @@ const ManagerView = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {bookings.map((booking, index) => (
+                  {futureBookingsData().map((booking, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{new Date(booking.date).toLocaleDateString()}</td>
+                      <td>{booking.slot}</td>
+                      <td>{booking.name}</td>
+                      <td>{booking.phone}</td>
+                      <td>{booking.email}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </>
+            )}
+          </table>
+          <h6 className="h5 mt-6 custom-h6">Past Bookings:</h6>
+          <table className="custom-table">
+            {isLoading ? (
+              <h3 className="loading">Loading...</h3>
+            ) : (
+              <>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Slot</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pastBookingsData().map((booking, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{new Date(booking.date).toLocaleDateString()}</td>
@@ -116,7 +165,7 @@ const ManagerView = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {availableSessions.map((session, index) => (
+                  {futureSessions().map((session, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{new Date(session.date).toLocaleDateString()}</td>
