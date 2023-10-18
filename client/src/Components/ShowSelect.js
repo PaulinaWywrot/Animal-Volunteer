@@ -113,7 +113,20 @@ const ShowSelect = ({
                 message: "Session has been cancelled at short notice",
               }),
             }
-          );
+          )
+            .then((res) => {
+              if (res.status === 200) {
+                console.log("Booking cancelled successfully");
+                setShowSelectEvening(false);
+                setShowSelectMorning(false);
+                alert("Booking cancelled successfully");
+              } else {
+                console.error("Booking cancellation failed");
+              }
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         } else {
           return res.json().then((errorData) => {
             console.error("Booking cancellation failed:", errorData);
