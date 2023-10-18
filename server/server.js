@@ -136,7 +136,7 @@ app.post("/sessions/volunteers", function (req, res) {
 app.post("/sessions/cancel", (req, res) => {
   const { to, subject, message } = req.body,
     messageData = {
-      from: "Excited User <paula.wywrot@gmail.com>",
+      from: "Attention - Booking Cancellation <paula.wywrot@gmail.com>",
       to: `${to}`,
       subject: `${subject}`,
       text: `${message}`,

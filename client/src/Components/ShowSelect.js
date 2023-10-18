@@ -69,10 +69,15 @@ const ShowSelect = ({
       console.error("Please select a volunteer before confirming booking");
     }
   };
-  const isDateWithin5Days = (date) => {
+  const isDateWithin5Days = (isoDate) => {
+    const date = new Date(isoDate);
     const now = new Date();
-    const fiveDaysFromNow = new Date(now);
-    fiveDaysFromNow.setDate(now.getDate() + 5);
+    const fiveDaysFromNow = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 5
+    );
+
     return date < fiveDaysFromNow;
   };
   const handleCancelBooking = () => {
@@ -91,35 +96,33 @@ const ShowSelect = ({
     )
       .then((res) => {
         console.log(res);
-        console.log("ses", sessionDate);
+
         if (res.status === 200 && !isDateWithin5Days(sessionDate)) {
           doHideModal();
 
           alert("Booking cancelled successfully");
         } else if (res.status === 200 && isDateWithin5Days(sessionDate)) {
-          console.log(sessionDate);
           doHideModal();
           alert("Booking cancelled successfully");
           fetch(
             "https://animal-volunteer-server.onrender.com/sessions/cancel",
             {
-              method: "PUT",
+              method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 to: "wywrot.paula@gmail.com",
                 subject: "Hello",
-                message: "Session has been cancelled at short notice",
+                message: `Session on ${new Date(
+                  sessionDate
+                ).toLocaleDateString()} has been cancelled at short notice`,
               }),
             }
           )
             .then((res) => {
               if (res.status === 200) {
-                console.log("Booking cancelled successfully");
-                setShowSelectEvening(false);
-                setShowSelectMorning(false);
-                alert("Booking cancelled successfully");
+                console.log("Email has been sent successfully");
               } else {
                 console.error("Booking cancellation failed");
               }
