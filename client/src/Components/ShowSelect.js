@@ -113,7 +113,7 @@ const ShowSelect = ({
               },
               body: JSON.stringify({
                 to: "wywrot.paula@gmail.com",
-                subject: "Hello",
+                subject: "Booking Cancellation",
                 message: `Session on ${new Date(
                   sessionDate
                 ).toLocaleDateString()} has been cancelled at short notice`,
