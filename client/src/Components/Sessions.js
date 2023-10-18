@@ -93,6 +93,7 @@ const Sessions = ({ selectedDate }) => {
                 showModal={showModal}
                 doHideModal={doHideModal}
                 slotId={slotId}
+                sessionDate={session.date}
               />
             </li>
           ))}

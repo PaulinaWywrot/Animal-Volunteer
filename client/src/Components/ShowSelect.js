@@ -12,6 +12,7 @@ const ShowSelect = ({
   doShowModal,
   doHideModal,
   slotId,
+  sessionDate,
 }) => {
   const [volunteers, setVolunteers] = useState([]);
   const [selectValue, setSelectValue] = useState(null);
@@ -68,6 +69,12 @@ const ShowSelect = ({
       console.error("Please select a volunteer before confirming booking");
     }
   };
+  const isDateWithin5Days = (date) => {
+    const now = new Date();
+    const fiveDaysFromNow = new Date(now);
+    fiveDaysFromNow.setDate(now.getDate() + 5);
+    return date < fiveDaysFromNow;
+  };
   const handleCancelBooking = () => {
     doShowModal();
     console.log("sessionId ======> ", slotId);
@@ -84,10 +91,29 @@ const ShowSelect = ({
     )
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
+        console.log("ses", sessionDate);
+        if (res.status === 200 && !isDateWithin5Days(sessionDate)) {
           doHideModal();
 
           alert("Booking cancelled successfully");
+        } else if (res.status === 200 && isDateWithin5Days(sessionDate)) {
+          console.log(sessionDate);
+          doHideModal();
+          alert("Booking cancelled successfully");
+          fetch(
+            "https://animal-volunteer-server.onrender.com/sessions/cancel",
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                to: "wywrot.paula@gmail.com",
+                subject: "Hello",
+                message: "Session has been cancelled at short notice",
+              }),
+            }
+          );
         } else {
           return res.json().then((errorData) => {
             console.error("Booking cancellation failed:", errorData);
