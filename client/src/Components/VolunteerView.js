@@ -85,32 +85,7 @@ const VolunteerView = () => {
             </option>
           ))}
         </select>
-        <h5 className="h5 bookings-title">Past Bookings</h5>
-        <table className="custom-table">
-          {isLoading ? (
-            <h3 className="loading">Loading...</h3>
-          ) : (
-            <>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Date</th>
-                  <th>Slot</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pastBookingsData().map((booking, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{new Date(booking.date).toLocaleDateString()}</td>
-                    <td>{booking.slot}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </>
-          )}
-        </table>
-        <h5 className="h5 bookings-title">Future Bookings</h5>
+        <h5 className="h5 bookings-title">Future Bookings:</h5>
         <table className="custom-table">
           {isLoading ? (
             <h3 className="loading">Loading...</h3>
@@ -125,6 +100,31 @@ const VolunteerView = () => {
               </thead>
               <tbody>
                 {futureBookingsData().map((booking, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{new Date(booking.date).toLocaleDateString()}</td>
+                    <td>{booking.slot}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </>
+          )}
+        </table>
+        <h5 className="h5 bookings-title">Past Bookings:</h5>
+        <table className="custom-table">
+          {isLoading ? (
+            <h3 className="loading">Loading...</h3>
+          ) : (
+            <>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>Slot</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pastBookingsData().map((booking, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{new Date(booking.date).toLocaleDateString()}</td>
