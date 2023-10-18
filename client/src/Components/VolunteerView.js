@@ -44,18 +44,30 @@ const VolunteerView = () => {
         console.log(Error);
       });
   }, [selectValue]);
+
   function handleChange(event) {
     const selectedValue = Number(event.target.value);
     setSelectValue(selectedValue);
     const volunteerBookingsData = bookings.filter(
       (booking) => booking.volunteer_id === selectedValue
     );
-    console.log("vol", volunteerBookingsData);
-    console.log("ev", typeof selectedValue);
 
     setVolunteerBookings(volunteerBookingsData);
   }
-
+  function pastBookingsData() {
+    const currentDate = new Date().toISOString();
+    const pastBookings = volunteerBookings.filter(
+      (booking) => booking.date < currentDate
+    );
+    return pastBookings;
+  }
+  function futureBookingsData() {
+    const currentDate = new Date().toISOString();
+    const pastBookings = volunteerBookings.filter(
+      (booking) => booking.date > currentDate
+    );
+    return pastBookings;
+  }
   return (
     <div>
       <div className="pb-5">
@@ -73,7 +85,7 @@ const VolunteerView = () => {
             </option>
           ))}
         </select>
-        <h5 className="h5 bookings-title">Your Bookings:</h5>
+        <h5 className="h5 bookings-title">Past Bookings</h5>
         <table className="custom-table">
           {isLoading ? (
             <h3 className="loading">Loading...</h3>
@@ -87,7 +99,32 @@ const VolunteerView = () => {
                 </tr>
               </thead>
               <tbody>
-                {volunteerBookings.map((booking, index) => (
+                {pastBookingsData().map((booking, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{new Date(booking.date).toLocaleDateString()}</td>
+                    <td>{booking.slot}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </>
+          )}
+        </table>
+        <h5 className="h5 bookings-title">Future Bookings</h5>
+        <table className="custom-table">
+          {isLoading ? (
+            <h3 className="loading">Loading...</h3>
+          ) : (
+            <>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>Slot</th>
+                </tr>
+              </thead>
+              <tbody>
+                {futureBookingsData().map((booking, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{new Date(booking.date).toLocaleDateString()}</td>
