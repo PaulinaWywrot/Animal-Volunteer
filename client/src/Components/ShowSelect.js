@@ -123,6 +123,9 @@ const ShowSelect = ({
             .then((res) => {
               if (res.status === 200) {
                 console.log("Email has been sent successfully");
+                alert(
+                  "The manager has been advised of this cancellation due to the short notice"
+                );
               } else {
                 console.error("Booking cancellation failed");
               }
@@ -142,6 +145,7 @@ const ShowSelect = ({
         alert("Error during booking cancellation");
       });
   };
+
   const doHideFormModal = () => {
     setShowFormModal(false);
   };
