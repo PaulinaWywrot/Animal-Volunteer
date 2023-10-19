@@ -31,7 +31,6 @@ const Sessions = ({ selectedDate }) => {
       .then((data) => {
         setIsLoading(false);
         setSessions(data);
-        console.log("sessions", sessions);
       })
       .catch((Error) => {
         setIsLoading(false);

@@ -38,7 +38,6 @@ const VolunteerView = () => {
       .then((data) => {
         setBookings(data);
         setIsLoading(false);
-        console.log("bookings", bookings);
       })
       .catch((Error) => {
         setIsLoading(false);

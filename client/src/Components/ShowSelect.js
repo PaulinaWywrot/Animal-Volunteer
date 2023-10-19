@@ -82,7 +82,6 @@ const ShowSelect = ({
   };
   const handleCancelBooking = () => {
     doShowModal();
-    console.log("sessionId ======> ", slotId);
     setSelectValue(null);
     fetch(
       `https://animal-volunteer-server.onrender.com/sessions/bookings/${slotId}`,
