@@ -6,7 +6,9 @@ const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
   const [bookedSessions, setBookedSessions] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3007/sessions/calendar/booked")
+    fetch(
+      "https://animal-volunteer-server.onrender.com/sessions/calendar/booked"
+    )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -44,11 +46,11 @@ const CalendarComponent = () => {
       );
 
       if (session.volunteer_no === "0") {
-        return "react-calendar__tile--now";
+        return "react-calendar";
       } else if (session.volunteer_no === "1") {
-        return "green";
+        return "yellow";
       } else if (session.volunteer_no === "2") {
-        return "pink";
+        return "grey";
       }
     }
   }
