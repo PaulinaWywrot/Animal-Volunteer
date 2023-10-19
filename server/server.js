@@ -30,6 +30,17 @@ app.get("/sessions", async (req, res) => {
     res.status(500).json({ error: "failed to fetch sessions" });
   }
 });
+app.get("/sessions/calendar", async (req, res) => {
+  try {
+    const result = await db.query(
+      "SELECT date, count(volunteer_id) as volunteer_no from sessions2 GROUP BY date"
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "failed to fetch data" });
+  }
+});
 
 app.get("/sessions/calendar/:date", async (req, res) => {
   let date = req.params.date;

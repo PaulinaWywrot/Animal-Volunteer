@@ -314,3 +314,6 @@ text-align: center;
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
 }
+.red {
+  background-color: red;
+}

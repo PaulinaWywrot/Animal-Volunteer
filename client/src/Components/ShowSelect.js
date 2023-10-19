@@ -36,7 +36,7 @@ const ShowSelect = ({
         setVolunteers(data);
       })
       .catch((Error) => console.log(Error));
-  }, []);
+  }, [volunteers]);
   function handleChange(event) {
     setSelectValue(event.target.value);
   }
