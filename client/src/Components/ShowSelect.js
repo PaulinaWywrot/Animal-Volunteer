@@ -20,9 +20,9 @@ const ShowSelect = ({
   const [fullname, setFullname] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const APP_URL = process.env.APP_URL;
+
   useEffect(() => {
-    fetch(`${APP_URL}/sessions/volunteers`)
+    fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers")
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
