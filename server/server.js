@@ -30,10 +30,10 @@ app.get("/sessions", async (req, res) => {
     res.status(500).json({ error: "failed to fetch sessions" });
   }
 });
-app.get("/sessions/calendar", async (req, res) => {
+app.get("/sessions/calendar/booked", async (req, res) => {
   try {
     const result = await db.query(
-      "SELECT date, count(volunteer_id) as volunteer_no from sessions2 GROUP BY date"
+      "SELECT to_char(date, 'yyyy-mm-dd') as date, count(volunteer_id) as volunteer_no from sessions2 GROUP BY date order by date"
     );
     res.status(200).json(result.rows);
   } catch (error) {
