@@ -81,13 +81,16 @@ const ShowSelect = ({
     doShowModal();
     console.log("sessionId ======> ", slotId);
     setSelectValue(null);
-    fetch(`${APP_URL}/sessions/bookings/${slotId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ volunteer_id: null }),
-    })
+    fetch(
+      `https://animal-volunteer-server.onrender.com/sessions/bookings/${slotId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ volunteer_id: null }),
+      }
+    )
       .then((res) => {
         console.log(res);
 
@@ -98,19 +101,22 @@ const ShowSelect = ({
         } else if (res.status === 200 && isDateWithin5Days(sessionDate)) {
           doHideModal();
           alert("Booking cancelled successfully");
-          fetch(`${APP_URL}/sessions/cancel`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              to: "wywrot.paula@gmail.com",
-              subject: "Booking Cancellation",
-              message: `Session on ${new Date(
-                sessionDate
-              ).toLocaleDateString()} has been cancelled at short notice`,
-            }),
-          })
+          fetch(
+            "https://animal-volunteer-server.onrender.com/sessions/cancel",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                to: "wywrot.paula@gmail.com",
+                subject: "Booking Cancellation",
+                message: `Session on ${new Date(
+                  sessionDate
+                ).toLocaleDateString()} has been cancelled at short notice`,
+              }),
+            }
+          )
             .then((res) => {
               if (res.status === 200) {
                 console.log("Email has been sent successfully");
@@ -157,7 +163,7 @@ const ShowSelect = ({
 
     console.log("Sending data to server");
 
-    fetch(`${APP_URL}/sessions/volunteers`, {
+    fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers", {
       method: "POST",
       body: JSON.stringify({
         name: fullname,

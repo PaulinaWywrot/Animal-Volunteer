@@ -5,9 +5,11 @@ import Sessions from "./Sessions";
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
   const [bookedSessions, setBookedSessions] = useState([]);
-  const APP_URL = process.env.APP_URL;
+
   useEffect(() => {
-    fetch(`${APP_URL}/sessions/calendar/booked`)
+    fetch(
+      "https://animal-volunteer-server.onrender.com/sessions/calendar/booked"
+    )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -19,14 +21,11 @@ const CalendarComponent = () => {
       })
       .then((data) => {
         setBookedSessions(data);
-
-        console.log("bookedSessions", bookedSessions);
       })
       .catch((Error) => {
         console.log(Error);
       });
   }, []);
-  console.log("bookedSessions", bookedSessions);
   const formatDate = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -35,7 +34,6 @@ const CalendarComponent = () => {
   };
   function tileClassName({ date }) {
     if (
-      // view === "month" &&
       bookedSessions.some((session) => {
         return session.date === formatDate(date);
       })
