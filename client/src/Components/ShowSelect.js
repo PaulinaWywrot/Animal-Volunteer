@@ -42,13 +42,16 @@ const ShowSelect = ({
   }
   const handleConfirmBooking = () => {
     if (selectValue !== null) {
-      fetch(`${APP_URL}/sessions/${sessionId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ volunteer_id: selectValue }),
-      })
+      fetch(
+        `https://animal-volunteer-server.onrender.com/sessions/${sessionId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ volunteer_id: selectValue }),
+        }
+      )
         .then((res) => {
           if (res.status === 200) {
             console.log("Booking confirmed successfully");
