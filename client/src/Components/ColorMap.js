@@ -1,7 +1,3 @@
-import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import Sessions from "./Sessions";
-
 const ColorMap = () => {
   return (
     <div className="color-map">
