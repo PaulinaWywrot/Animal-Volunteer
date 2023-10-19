@@ -98,6 +98,49 @@ font-weight: bold;
   padding: 1rem;
   border-radius: 5px;
 }
+.color-map {
+  background-color: rgb(206, 226, 202);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 5px;
+  width: 30%;
+  margin: 3rem auto;
+}
+
+  .color-map-item {
+    display: inline-block;
+    margin: 10px;
+  }
+
+  .color-square {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .green {
+    background: rgb(247, 254, 230);
+  }
+
+  .yellow {
+    background-color: #f8fdc6;
+  }
+
+  .grey {
+    background-color: #f1f3ea;
+  }
+
+.color-map p {
+  display: inline;
+  margin: 0;
+}
+
+
+
+
+
+
 .about{
     background-color: #eef6dd;;
     width: 50%;
@@ -302,13 +345,13 @@ text-align: center;
 }
 
 .react-calendar__tile--active {
-  background:rgb(147, 187, 139);
+  background:rgb(206, 226, 202);
   color: white;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: rgba(96, 142, 85, 0.868);
+  background: rgb(165, 191, 160);
 
 }
 
@@ -319,9 +362,9 @@ text-align: center;
   background-color: red;
 }
 .yellow{ 
-  background-color: #f0fad9;
+  background-color: #f8fdc6;
 }
 .grey {
- background-color: #fcfef4;
+ background-color: #f1f3ea;
 color: rgb(170, 170, 170)
 }

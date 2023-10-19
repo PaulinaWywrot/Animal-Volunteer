@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import Sessions from "./Sessions";
+import ColorMap from "./ColorMap";
 
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
@@ -75,6 +76,7 @@ const CalendarComponent = () => {
           </div>
         </div>
       </div>
+      <ColorMap />
     </div>
   );
 };
