@@ -4,9 +4,10 @@ const ManagerView = () => {
   const [bookings, setBookings] = useState([]);
   const [availableSessions, setAvailableSessions] = useState([]);
   const [viewTable, setViewTable] = useState("booked");
+  const APP_URL = process.env.APP_URL;
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://animal-volunteer-server.onrender.com/sessions/available")
+    fetch(`${APP_URL}/sessions/available`)
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -25,7 +26,7 @@ const ManagerView = () => {
   }, [viewTable]);
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://animal-volunteer-server.onrender.com/sessions/bookings")
+    fetch(`${APP_URL}/sessions/bookings`)
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();

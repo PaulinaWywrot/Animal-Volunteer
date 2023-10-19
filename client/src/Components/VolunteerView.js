@@ -6,8 +6,9 @@ const VolunteerView = () => {
   const [selectValue, setSelectValue] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [volunteerBookings, setVolunteerBookings] = useState([]);
+  const APP_URL = process.env.APP_URL;
   useEffect(() => {
-    fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers")
+    fetch(`${APP_URL}/sessions/volunteers`)
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -24,7 +25,7 @@ const VolunteerView = () => {
   }, []);
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://animal-volunteer-server.onrender.com/sessions/bookings")
+    fetch(`${APP_URL}/sessions/bookings`)
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();

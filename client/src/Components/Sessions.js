@@ -8,7 +8,7 @@ const Sessions = ({ selectedDate }) => {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [slotId, setSlotId] = useState(null);
-  console.log(selectedDate);
+  const APP_URL = process.env.APP_URL;
   const doShowModal = () => {
     setShowModal(true);
   };
@@ -17,9 +17,7 @@ const Sessions = ({ selectedDate }) => {
   };
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://animal-volunteer-server.onrender.com/sessions/calendar/${selectedDate}`
-    )
+    fetch(`${APP_URL}/sessions/calendar/${selectedDate}`)
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
