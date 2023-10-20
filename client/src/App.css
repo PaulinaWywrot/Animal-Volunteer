@@ -368,3 +368,13 @@ text-align: center;
  background-color: #f1f3ea;
 color: rgb(170, 170, 170)
 }
+
+@media (max-width: 768px) {
+  .color-map {
+    width: 70%;
+  }
+
+  .about {
+    width: 90%;
+  }
+}
