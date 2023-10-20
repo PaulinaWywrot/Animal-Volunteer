@@ -298,7 +298,9 @@ text-align: center;
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
 }
-
+.react-calendar__navigation__label__labelText{
+  color: rgba(47, 71, 42, 0.868);
+}
 .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
