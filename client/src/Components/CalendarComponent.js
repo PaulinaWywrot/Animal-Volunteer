@@ -52,6 +52,9 @@ const CalendarComponent = () => {
       }
     }
   }
+  const tileDisabled = ({ activeStartDate, date }) => {
+    return date < new Date();
+  };
   return (
     <div>
       <h6 className="h4 mt-5 font-li">
@@ -66,6 +69,7 @@ const CalendarComponent = () => {
                 tileClassName={tileClassName}
                 onChange={setDate}
                 value={date}
+                tileDisabled={tileDisabled}
               />
             </div>
           </div>

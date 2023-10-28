@@ -72,7 +72,9 @@ const VolunteerView = () => {
     <div>
       <div className="pb-5">
         <div className=" mt-3 text-center">
-          <h5 className="bookings-title">Select your name</h5>
+          <h5 className="bookings-title">
+            Select your name to see the bookings
+          </h5>
         </div>
         <select
           onChange={handleChange}
