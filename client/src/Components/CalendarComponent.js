@@ -52,9 +52,13 @@ const CalendarComponent = () => {
       }
     }
   }
-  const tileDisabled = ({ activeStartDate, date }) => {
-    return date < new Date();
+  const tileDisabled = ({ date }) => {
+    const now = new Date();
+    now.setHours(0, 0, 0);
+    now.setMilliseconds(0);
+    return date < now;
   };
+
   return (
     <div>
       <h6 className="h4 mt-5 font-li">
