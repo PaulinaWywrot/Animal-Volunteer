@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up AWS CLI
         uses: aws-actions/configure-aws-credentials@v1
@@ -31,4 +31,4 @@ jobs:
 
       - name: Sync build folder to S3
         run: |
-          aws s3 sync build/ s3://your-s3-bucket-name
+          aws s3 sync build/ s3://fullstack-paulina
