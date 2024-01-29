@@ -22,7 +22,9 @@ const ShowSelect = ({
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-    fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers")
+    fetch(
+      "http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/volunteers"
+    )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -43,7 +45,7 @@ const ShowSelect = ({
   const handleConfirmBooking = () => {
     if (selectValue !== null) {
       fetch(
-        `https://animal-volunteer-server.onrender.com/sessions/${sessionId}`,
+        `http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/${sessionId}`,
         {
           method: "PUT",
           headers: {
@@ -80,12 +82,13 @@ const ShowSelect = ({
 
     return date < fiveDaysFromNow;
   };
+
   const handleCancelBooking = () => {
     doShowModal();
     setSelectValue(null);
 
     fetch(
-      `https://animal-volunteer-server.onrender.com/sessions/bookings/${slotId}`,
+      `http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/bookings/${slotId}`,
       {
         method: "PUT",
         headers: {
@@ -105,7 +108,7 @@ const ShowSelect = ({
           doHideModal();
           alert("Booking cancelled successfully");
           fetch(
-            "https://animal-volunteer-server.onrender.com/sessions/cancel",
+            "http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/cancel",
             {
               method: "POST",
               headers: {
@@ -166,17 +169,20 @@ const ShowSelect = ({
 
     console.log("Sending data to server");
 
-    fetch("https://animal-volunteer-server.onrender.com/sessions/volunteers", {
-      method: "POST",
-      body: JSON.stringify({
-        name: fullname,
-        phone: phone,
-        email: email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      "http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/volunteers",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          name: fullname,
+          phone: phone,
+          email: email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((res) => {
         console.log(res);
         if (res.status === 201) {

@@ -17,7 +17,7 @@ const Sessions = ({ selectedDate }) => {
   useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://animal-volunteer-server.onrender.com/sessions/calendar/${selectedDate}`
+      `http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/calendar/${selectedDate}`
     )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {

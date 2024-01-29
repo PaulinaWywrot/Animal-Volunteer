@@ -9,7 +9,7 @@ const CalendarComponent = () => {
 
   useEffect(() => {
     fetch(
-      "https://animal-volunteer-server.onrender.com/sessions/calendar/booked"
+      "http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/calendar/booked"
     )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {

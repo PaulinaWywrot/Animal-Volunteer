@@ -106,8 +106,6 @@ app.put("/sessions/:id", function (req, res) {
 app.put("/sessions/bookings/:id", function (req, res) {
   let id = Number(req.params.id);
   let { volunteer_id } = req.body;
-  console.log("PUT request received for sessionId:", id);
-  console.log("Request body:", req.body);
   db.query("UPDATE sessions2 SET volunteer_id = $1 WHERE id = $2", [
     volunteer_id,
     id,

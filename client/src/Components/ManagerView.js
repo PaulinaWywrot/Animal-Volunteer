@@ -7,7 +7,9 @@ const ManagerView = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://animal-volunteer-server.onrender.com/sessions/available")
+    fetch(
+      "http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/available"
+    )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -26,7 +28,9 @@ const ManagerView = () => {
   }, [viewTable]);
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://animal-volunteer-server.onrender.com/sessions/bookings")
+    fetch(
+      "http://ec2-35-178-28-238.eu-west-2.compute.amazonaws.com:3007/sessions/bookings"
+    )
       .then((res) => {
         if (res.status >= 200 && res.status <= 299) {
           return res.json();
@@ -67,6 +71,7 @@ const ManagerView = () => {
     );
     return pastBookings;
   }
+
   return (
     <div>
       <div className="d-flex justify-content-center mt-5">
