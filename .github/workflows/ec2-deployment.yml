@@ -33,6 +33,7 @@ jobs:
 
       - name: Build application
         run: |
+          ls
           npm install
           npm run build
 
