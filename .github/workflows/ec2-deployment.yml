@@ -31,12 +31,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 35.178.28.238 >> ~/.ssh/known_hosts
 
-      - name: Build application
-        run: |
-          ls
-          npm install
-          npm run build
-
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ec2-user@35.178.28.238 'cd /app/server && git pull && pm2 restart server'
+          ssh -i ~/.ssh/id_rsa ec2-user@35.178.28.238 'cd /app/server && git pull && npm install && pm2 restart server'
