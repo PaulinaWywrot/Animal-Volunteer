@@ -33,4 +33,4 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ec2-user@35.178.28.238 'cd app/server && /usr/bin/git pull && npm install && pm2 restart server'
+          ssh -i ~/.ssh/id_rsa ec2-user@35.178.28.238 'cd /app/server && $(which git) pull && npm install && pm2 restart server'
