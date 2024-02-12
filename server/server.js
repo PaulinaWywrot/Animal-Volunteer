@@ -13,13 +13,13 @@ const db = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 const formData = require("form-data");
-const Mailgun = require("mailgun.js");
+// const Mailgun = require("mailgun.js");
 
-const mailgun = new Mailgun(formData);
-const client = mailgun.client({
-  username: "api",
-  key: process.env.MAILGUN_API_KEY,
-});
+// const mailgun = new Mailgun(formData);
+// const client = mailgun.client({
+//   username: "api",
+//   key: process.env.MAILGUN_API_KEY,
+// });
 
 app.get("/sessions", async (req, res) => {
   try {
@@ -142,27 +142,27 @@ app.post("/sessions/volunteers", function (req, res) {
     });
   }
 });
-app.post("/sessions/cancel", (req, res) => {
-  const { to, subject, message } = req.body,
-    messageData = {
-      from: "Booking Cancellation <paula.wywrot@gmail.com>",
-      to: `${to}`,
-      subject: `${subject}`,
-      text: `${message}`,
-    };
+// app.post("/sessions/cancel", (req, res) => {
+//   const { to, subject, message } = req.body,
+//     messageData = {
+//       from: "Booking Cancellation <paula.wywrot@gmail.com>",
+//       to: `${to}`,
+//       subject: `${subject}`,
+//       text: `${message}`,
+//     };
 
-  client.messages
-    .create(process.env.MAILGUN_DOMAIN, messageData)
-    .then((response) => {
-      console.log("Email sent successfully:", response);
-      res.json({ message: "Email sent successfully!" });
-    })
-    .catch((error) => {
-      console.error("Email sending error:", error);
-      res
-        .status(500)
-        .json({ message: "Something went wrong in sending email!" });
-    });
-});
+//   client.messages
+//     .create(process.env.MAILGUN_DOMAIN, messageData)
+//     .then((response) => {
+//       console.log("Email sent successfully:", response);
+//       res.json({ message: "Email sent successfully!" });
+//     })
+//     .catch((error) => {
+//       console.error("Email sending error:", error);
+//       res
+//         .status(500)
+//         .json({ message: "Something went wrong in sending email!" });
+//     });
+// });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
