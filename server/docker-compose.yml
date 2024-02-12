@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  app:
+    image: paulinawywrot/farm-volunteer:latest
+    container_name: farm-volunteer
+    restart: always
+    ports:
+      - "3007:3007"
+    environment:
+      NODE_ENV: production
