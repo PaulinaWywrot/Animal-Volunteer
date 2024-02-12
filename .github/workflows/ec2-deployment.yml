@@ -2,6 +2,8 @@ name: Backend EC2 Deployment
 
 on:
   push:
+    paths:
+      - "server/**"
     branches:
       - test-branch-for-aws
 env:
