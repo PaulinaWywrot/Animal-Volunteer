@@ -2,7 +2,7 @@ name: S3 Deployment Workflow
 
 on:
   push:
-   paths:
+    paths:
       - "client/**"
     branches:
       - test-branch-for-aws
