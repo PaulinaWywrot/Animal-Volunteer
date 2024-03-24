@@ -1,0 +1,42 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.37.0"
+    }
+  }
+  required_version = ">= 1.0.0"
+}
+
+provider "aws" {
+  region = "eu-west-2"  # Specify the AWS region
+}
+
+# Define an AWS instance using the specified AMI and instance type
+resource "aws_instance" "farm_instance" {
+  instance_type          = "t2.micro"  # Specify the instance type
+  ami                    = "ami-09d6bbc1af02c2ca1"  # Specify the AMI ID
+  vpc_security_group_ids = ["sg-0c04bbb142061b09e"]  # Reference to the existing security group by ID
+  key_name               = "NodeApplicationLoginKey"  # Specify the key pair name
+  
+  tags = {
+    Name = "farm_instance"  # Specify tags for identification
+  }
+  
+  # Provisioning script to run commands on the instance remotely
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"  # Specify the connection type
+      user        = "ec2-user"  # Specify the SSH user
+      private_key = file("/Users/paulina/Downloads/NodeApplicationLoginKey.pem")  # Specify the path to the private key
+      host        = self.public_ip  # Specify the instance's public IP dynamically
+    }
+    
+    inline = [
+      "sudo yum update -y",  # Update the package repository
+      "sudo yum install docker -y",  # Install Docker
+      "sudo systemctl start docker",  # Start Docker service
+      "sudo systemctl enable docker"  # Enable Docker service on boot
+    ]
+  }
+}

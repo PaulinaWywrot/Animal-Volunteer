@@ -1,0 +1,16 @@
+provider "aws" {
+  region = "eu-west-2"
+}
+resource "aws_db_instance" "paulina" {
+  identifier            = "paulina"
+  allocated_storage     = 20
+  engine                = "postgres"
+  engine_version        = "15.5"
+  instance_class        = "db.t3.micro"
+  db_name               = "paulina_farm"
+  username              = "postgres"
+  password              = "password123"
+  parameter_group_name  = "default.postgres15"
+  publicly_accessible   = true
+  vpc_security_group_ids = ["sg-0d5483046ba65dfe5"]
+}

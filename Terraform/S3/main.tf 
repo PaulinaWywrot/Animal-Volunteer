@@ -1,0 +1,83 @@
+# Provider configuration for AWS in the EU (London) region
+provider "aws" {
+  region = "eu-west-2"
+}
+
+# AWS S3 bucket for hosting fullstack-paulina's farm
+resource "aws_s3_bucket" "fullstack-paulina" {
+  bucket = "fullstack-paulina"  # Bucket name
+  website {
+    index_document = "index.html"  
+  }
+  force_destroy = true  # Allow deleting the bucket even if it's not empty
+  versioning {
+    enabled = false  # Versioning of objects in the bucket is disabled
+  }
+  lifecycle_rule {
+    enabled = false  # Lifecycle management of objects in the bucket is disabled
+  }
+}
+
+# IAM user policy allowing modifications to the bucket policy
+resource "aws_iam_user_policy" "s3_bucket_policy" {
+  name   = "S3BucketPolicyModificationPolicy"
+  user   = "Paulina"  # IAM user name
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = "s3:PutBucketPolicy",
+        Resource = "arn:aws:s3:::fullstack-paulina"  # ARN of the bucket
+      }
+    ]
+  })
+}
+
+# Bucket policy allowing public read access to objects
+resource "aws_s3_bucket_policy" "fullstack-paulina_policy" {
+  bucket = aws_s3_bucket.fullstack-paulina.bucket  # Reference to the bucket
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Sid       = "Statement1",
+        Effect    = "Allow",
+        Principal = "*",
+        Action    = "s3:GetObject",
+        Resource  = "arn:aws:s3:::fullstack-paulina/*"  # ARN of objects in the bucket
+      }
+    ]
+  })
+}
+
+# Configuration for versioning of objects in the bucket (currently suspended)
+resource "aws_s3_bucket_versioning" "fullstack-paulina" {
+  bucket = aws_s3_bucket.fullstack-paulina.bucket  # Reference to the bucket
+  versioning_configuration {
+    status = "Suspended"  # Versioning status
+  }
+}
+
+# Configuration for blocking public access to the bucket
+resource "aws_s3_bucket_public_access_block" "fullstack-paulina-public-access-block" {
+  bucket = aws_s3_bucket.fullstack-paulina.id  # Reference to the bucket
+  block_public_acls       = false
+  ignore_public_acls      = false
+  block_public_policy     = false
+  restrict_public_buckets = false
+}
+
+# Configuration for website hosting of the bucket
+resource "aws_s3_bucket_website_configuration" "fullstack-paulina-website" {
+  bucket = aws_s3_bucket.fullstack-paulina.bucket  # Reference to the bucket
+  index_document {
+    suffix = "index.html"  # Default index document
+  }
+  routing_rule {
+    redirect {
+      host_name = "fullstack-paulina.s3-website-eu-west-2.amazonaws.com"  # Redirect configuration
+      protocol  = "http"
+    }
+  }
+}
